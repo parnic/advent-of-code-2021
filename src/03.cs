@@ -4,9 +4,12 @@
     {
         internal static void Go()
         {
+            Logger.Log("Day 3");
+            Logger.Log("-----");
             var lines = File.ReadAllLines("inputs/03.txt");
             Part1(lines);
             Part2(lines);
+            Logger.Log("");
         }
 
         private static void Part1(IEnumerable<string> lines)
@@ -123,7 +126,7 @@
                 }
             }
 
-            Logger.Log($"o2*co2 = {o2} * {co2} = {o2 * co2}");
+            Logger.Log($"part2: o2*co2 = {o2} * {co2} = {o2 * co2}");
         }
     }
 }

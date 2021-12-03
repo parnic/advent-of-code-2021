@@ -4,6 +4,8 @@ namespace aoc2021
     {
         internal static void Go()
         {
+            Logger.Log("Day 2");
+            Logger.Log("-----");
             var lines = File.ReadAllLines("inputs/02.txt");
             var instructions = new List<Instruction>();
             foreach (var instruction in lines)
@@ -18,6 +20,7 @@ namespace aoc2021
 
             Part1(instructions);
             Part2(instructions);
+            Logger.Log("");
         }
 
         struct Instruction
@@ -34,25 +37,23 @@ namespace aoc2021
 
         private static void Part1(IEnumerable<Instruction> instructions)
         {
+            using var t = new Timer();
             Position pos = new();
-            using (var t = new Timer())
+            foreach (var instruction in instructions)
             {
-                foreach (var instruction in instructions)
+                switch (instruction.Direction)
                 {
-                    switch (instruction.Direction)
-                    {
-                        case "forward":
-                            pos.h += instruction.Amount;
-                            break;
+                    case "forward":
+                        pos.h += instruction.Amount;
+                        break;
 
-                        case "down":
-                            pos.d += instruction.Amount;
-                            break;
+                    case "down":
+                        pos.d += instruction.Amount;
+                        break;
 
-                        case "up":
-                            pos.d -= instruction.Amount;
-                            break;
-                    }
+                    case "up":
+                        pos.d -= instruction.Amount;
+                        break;
                 }
             }
 
@@ -61,27 +62,25 @@ namespace aoc2021
 
         private static void Part2(IEnumerable<Instruction> instructions)
         {
+            using var t = new Timer();
             Position pos = new();
-            using (var t = new Timer())
+            long aim = 0;
+            foreach (var instruction in instructions)
             {
-                long aim = 0;
-                foreach (var instruction in instructions)
+                switch (instruction.Direction)
                 {
-                    switch (instruction.Direction)
-                    {
-                        case "forward":
-                            pos.h += instruction.Amount;
-                            pos.d += aim * instruction.Amount;
-                            break;
+                    case "forward":
+                        pos.h += instruction.Amount;
+                        pos.d += aim * instruction.Amount;
+                        break;
 
-                        case "down":
-                            aim += instruction.Amount;
-                            break;
+                    case "down":
+                        aim += instruction.Amount;
+                        break;
 
-                        case "up":
-                            aim -= instruction.Amount;
-                            break;
-                    }
+                    case "up":
+                        aim -= instruction.Amount;
+                        break;
                 }
             }
 
