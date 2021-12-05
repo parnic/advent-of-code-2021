@@ -5,9 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Node run 04",
+            "program": "${workspaceFolder}/src/04.js",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        },
+        {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug executable 'aoc2021'",
+            "name": "Debug Rust executable 'aoc2021'",
             "cargo": {
                 "args": [
                     "build",
@@ -25,7 +34,7 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug unit tests in executable 'aoc2021'",
+            "name": "Debug Rust unit tests in executable 'aoc2021'",
             "cargo": {
                 "args": [
                     "test",
