@@ -33,6 +33,9 @@
 	  <None Update="inputs\06.txt">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
+	  <None Update="inputs\07.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 
 </Project>
