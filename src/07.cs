@@ -16,8 +16,8 @@
         {
             var min = nums.Min();
             var max = nums.Max();
-            long minDist = 0;
-            int? minNum = null;
+            long minDist = long.MaxValue;
+            int minNum = 0;
             for (int i = min; i <= max; i++)
             {
                 long dist = 0;
@@ -26,14 +26,14 @@
                     dist += formula(Math.Abs(num - i));
                 }
 
-                if (minNum == null || dist < minDist)
+                if (dist < minDist)
                 {
                     minDist = dist;
                     minNum = i;
                 }
             }
 
-            return (minDist, minNum.Value);
+            return (minDist, minNum);
         }
 
         private static void Part1(IEnumerable<int> nums)

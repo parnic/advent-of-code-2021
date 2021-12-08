@@ -15,7 +15,7 @@ namespace aoc2021
 
             public bool Equals(Point other) => X == other.X && Y == other.Y;
 
-            public override bool Equals(object obj) => obj is Point point && Equals(point);
+            public override bool Equals(object? obj) => obj is Point point && Equals(point);
 
             public override int GetHashCode() => HashCode.Combine(X, Y);
         }
