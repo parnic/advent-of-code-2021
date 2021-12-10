@@ -12,14 +12,32 @@
             Logger.Log("");
         }
 
+        private static readonly List<char> Openers = new()
+        {
+            '(',
+            '[',
+            '{',
+            '<',
+        };
+
+        private static readonly List<char> Closers = new()
+        {
+            ')',
+            ']',
+            '}',
+            '>',
+        };
+
+        private static bool IsMatching(char open, char close) => Closers.IndexOf(close) == Openers.IndexOf(open);
+
         private static void Part1(IEnumerable<string> lines)
         {
-            Dictionary<char, int> charVals = new()
+            List<int> charVals = new()
             {
-                { ')', 3 },
-                { ']', 57 },
-                { '}', 1197 },
-                { '>', 25137 },
+                3,
+                57,
+                1197,
+                25137,
             };
 
             using var t = new Timer();
@@ -30,7 +48,7 @@
                 var (corrupted, ch) = IsCorrupted(line);
                 if (corrupted)
                 {
-                    score += charVals[ch];
+                    score += charVals[Closers.IndexOf(ch)];
                 }
             }
 
@@ -42,31 +60,21 @@
             var s = new Stack<char>();
             foreach (var ch in line)
             {
-                switch (ch)
+                if (Openers.Contains(ch))
                 {
-                    case '(':
-                    case '[':
-                    case '{':
-                    case '<':
-                        s.Push(ch);
-                        break;
-
-                    case ')':
-                    case ']':
-                    case '}':
-                    case '>':
-                        var popped = s.Pop();
-                        if (ch == ')' && popped != '('
-                            || ch == ']' && popped != '['
-                            || ch == '}' && popped != '{'
-                            || ch == '>' && popped != '<')
-                        {
-                            return (true, ch);
-                        }
-                        break;
-
-                    default:
-                        throw new Exception();
+                    s.Push(ch);
+                }
+                else if (Closers.Contains(ch))
+                {
+                    var popped = s.Pop();
+                    if (!IsMatching(popped, ch))
+                    {
+                        return (true, ch);
+                    }
+                }
+                else
+                {
+                    throw new Exception();
                 }
             }
 
@@ -75,12 +83,12 @@
 
         private static void Part2(IEnumerable<string> lines)
         {
-            Dictionary<char, int> charVals = new()
+            List<int> charVals = new()
             {
-                { '(', 1 },
-                { '[', 2 },
-                { '{', 3 },
-                { '<', 4 },
+                1,
+                2,
+                3,
+                4,
             };
 
             using var t = new Timer();
@@ -97,24 +105,17 @@
                 var s = new Stack<char>();
                 foreach (var ch in line)
                 {
-                    switch (ch)
+                    if (Openers.Contains(ch))
                     {
-                        case '(':
-                        case '[':
-                        case '{':
-                        case '<':
-                            s.Push(ch);
-                            break;
-
-                        case ')':
-                        case ']':
-                        case '}':
-                        case '>':
-                            s.Pop();
-                            break;
-
-                        default:
-                            throw new Exception();
+                        s.Push(ch);
+                    }
+                    else if (Closers.Contains(ch))
+                    {
+                        s.Pop();
+                    }
+                    else
+                    {
+                        throw new Exception();
                     }
                 }
 
@@ -122,26 +123,7 @@
                 while (s.Count > 0)
                 {
                     var ch = s.Pop();
-                    if (ch == '(')
-                    {
-                        score *= 5;
-                        score += charVals[ch];
-                    }
-                    else if (ch == '[')
-                    {
-                        score *= 5;
-                        score += charVals[ch];
-                    }
-                    else if (ch == '{')
-                    {
-                        score *= 5;
-                        score += charVals[ch];
-                    }
-                    else if (ch == '<')
-                    {
-                        score *= 5;
-                        score += charVals[ch];
-                    }
+                    score = (score * 5) + charVals[Openers.IndexOf(ch)];
                 }
 
                 scores.Add(score);
@@ -152,7 +134,7 @@
                 throw new Exception();
             }
 
-            var final = scores.OrderBy(x => x).Skip((int)Math.Floor(scores.Count / 2.0)).First();
+            var final = scores.OrderBy(x => x).Skip(scores.Count / 2).First();
 
             Logger.Log($"part2: {final}");
         }
