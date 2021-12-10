@@ -7,6 +7,7 @@ const lines = fs.readFileSync('inputs/04.txt').toString().split('\n');
 let phase = 0;
 let row = 0;
 lines.forEach(line => {
+    line = line.trimEnd("\r");
     if (line.length == 0) {
         boards.push(Array());
         phase++;
