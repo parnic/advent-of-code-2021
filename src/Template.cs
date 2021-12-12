@@ -1,8 +1,8 @@
 ﻿namespace aoc2021;
 
-internal class DayTemplate
+internal class DayTemplate : Day
 {
-    internal static void Go()
+    internal override void Go()
     {
         Logger.Log("Day #");
         Logger.Log("-----");

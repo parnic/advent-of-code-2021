@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "All": {
+      "commandName": "Project",
+      "commandLineArgs": "all"
+    },
+    "Default day": {
+      "commandName": "Project"
+    }
+  }
+}

@@ -1,8 +1,8 @@
 ﻿namespace aoc2021;
 
-internal class Day11
+internal class Day11 : Day
 {
-    internal static void Go()
+    internal override void Go()
     {
         Logger.Log("Day 11");
         Logger.Log("-----");
