@@ -37,7 +37,11 @@ switch (arg)
         aoc2021.Day10.Go();
         break;
 
-    default:
+    case "11":
         aoc2021.Day11.Go();
+        break;
+
+    default:
+        aoc2021.Day12.Go();
         break;
 }
