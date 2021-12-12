@@ -20,8 +20,14 @@ internal class Day12
                 paths[points[1]] = new List<string>();
             }
 
-            paths[points[0]].Add(points[1]);
-            paths[points[1]].Add(points[0]);
+            if (points[0] != "end" && points[1] != "start")
+            {
+                paths[points[0]].Add(points[1]);
+            }
+            if (points[1] != "end" && points[0] != "start")
+            {
+                paths[points[1]].Add(points[0]);
+            }
         }
         Part1(paths);
         Part2(paths);
@@ -38,28 +44,24 @@ internal class Day12
         Logger.Log($"part1: {validPaths.Count}");
     }
 
-    private static void FindPaths(Dictionary<string, List<string>> paths, List<List<string>> routes, List<string> currRoute, bool canVisitSmallCaveTwice)
+    private static void FindPaths(Dictionary<string, List<string>> paths, List<List<string>> routes, List<string> currRoute, bool canVisitSmallCaveTwice, bool hasDoubledCave = false)
     {
         //Logger.Log($"Current path: {string.Join(',', currRoute)}");
         var curr = currRoute.Last();
         foreach (var next in paths[curr])
         {
             //Logger.Log($"  Evaluating next: {next}");
-            if (next == "start")
-            {
-                //Logger.Log($"    is start, skipping");
-                continue;
-            }
             if (next != "end" && next.ToLower() == next && currRoute.Contains(next))
             {
-                if (!canVisitSmallCaveTwice)
+                if (!canVisitSmallCaveTwice || hasDoubledCave)
                 {
                     //Logger.Log($"    is already-visited small cave, skipping");
                     continue;
                 }
-                else if (currRoute.Any(x => x.ToLower() == x && currRoute.Count(y => x == y) == 2))
+                else if (currRoute.Any(x => x[0] >= 'a' && x[0] <= 'z' && currRoute.Count(y => x == y) == 2))
                 {
                     //Logger.Log($"    is already-visited small cave and we have already been to another one twice, skipping");
+                    hasDoubledCave = true;
                     continue;
                 }
             }
@@ -68,11 +70,11 @@ internal class Day12
             if (next == "end")
             {
                 //Logger.Log($"    is end, so adding {string.Join(',', currRoute)} to valid paths");
-                routes.Add(currRoute);
+                routes.Add(new List<string>(currRoute));
             }
             else
             {
-                FindPaths(paths, routes, new List<string>(currRoute), canVisitSmallCaveTwice);
+                FindPaths(paths, routes, currRoute, canVisitSmallCaveTwice, hasDoubledCave);
             }
 
             currRoute.RemoveAt(currRoute.Count - 1);
