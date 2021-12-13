@@ -4,12 +4,9 @@ internal class DayTemplate : Day
 {
     internal override void Go()
     {
-        Logger.Log("Day #");
-        Logger.Log("-----");
         var lines = Util.ReadAllLines("inputs/##.txt");
         Part1(lines);
         Part2(lines);
-        Logger.Log("");
     }
 
     private static void Part1(IEnumerable<string> lines)
