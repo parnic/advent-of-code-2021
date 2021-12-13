@@ -4,9 +4,6 @@ internal class Day11 : Day
 {
     internal override void Go()
     {
-        Logger.Log("Day 11");
-        Logger.Log("-----");
-
         var lines = File.ReadAllLines("inputs/11.txt");
         var grid = new byte[lines.Length, lines[0].Length];
         for (int i = 0; i < lines.Length; i++)
@@ -24,8 +21,6 @@ internal class Day11 : Day
 
         Part1(grid);
         Part2(grid);
-
-        Logger.Log("");
     }
 
     private static IEnumerable<(int, int)> Adjacent(byte[,] grid, int i, int j)
@@ -104,7 +99,7 @@ internal class Day11 : Day
             }
         }
 
-        Logger.Log($"part1: {numFlashes}");
+        Logger.Log($"part1: <blue>{numFlashes}<r>");
     }
 
     private static void Part2(byte[,] grid)
@@ -137,6 +132,6 @@ internal class Day11 : Day
             }
         }
 
-        Logger.Log($"part2: {step}");
+        Logger.Log($"part2: <blue>{step}<r>");
     }
 }

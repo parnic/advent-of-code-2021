@@ -11,13 +11,13 @@ if (arg == "all")
 
     foreach (var type in types)
     {
-        var day = (Day)Activator.CreateInstance(type)!;
+        using var day = (Day)Activator.CreateInstance(type)!;
         day.Go();
     }
 }
 else
 {
-    Day day = arg switch
+    using Day day = arg switch
     {
         "1" => new Day01(),
         "2" => new Day02(),

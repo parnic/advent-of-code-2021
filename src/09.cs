@@ -4,8 +4,6 @@ internal class Day09 : Day
 {
     internal override void Go()
     {
-        Logger.Log("Day 9");
-        Logger.Log("-----");
         var lines = File.ReadAllLines("inputs/09.txt");
         byte[,] grid = new byte[lines.Length, lines[0].Length];
         for (int i = 0; i < lines.Length; i++)
@@ -17,7 +15,6 @@ internal class Day09 : Day
         }
         Part1(grid);
         Part2(grid);
-        Logger.Log("");
     }
 
     private static void Part1(byte[,] grid)
@@ -27,7 +24,7 @@ internal class Day09 : Day
         var lowPoints = GetLowPoints(grid);
         var totalRisk = lowPoints.Sum(x => grid[x.Item1, x.Item2] + 1);
 
-        Logger.Log($"part1: {totalRisk}");
+        Logger.Log($"part1: <blue>{totalRisk}<r>");
     }
 
     private static List<(int, int)> GetLowPoints(byte[,] grid)
@@ -75,7 +72,7 @@ internal class Day09 : Day
         }
         var top3Mult = basins.OrderByDescending(x => x).Take(3).Aggregate(1, (x, y) => x * y);
 
-        Logger.Log($"part2: {top3Mult}");
+        Logger.Log($"part2: <blue>{top3Mult}<r>");
     }
 
     private static List<(int, int)> GetBasinSize(byte[,] grid, int i, int j)

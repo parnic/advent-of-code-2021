@@ -4,12 +4,9 @@ internal class Day07 : Day
 {
     internal override void Go()
     {
-        Logger.Log("Day 7");
-        Logger.Log("-----");
         var nums = File.ReadAllText("inputs/07.txt").Split(',').Select(int.Parse);
         Part1(nums);
         Part2(nums);
-        Logger.Log("");
     }
 
     private static (long, int) Solve(IEnumerable<int> nums, Func<long, long> formula)
@@ -42,7 +39,7 @@ internal class Day07 : Day
 
         var (minDist, minNum) = Solve(nums, (d) => d);
 
-        Logger.Log($"part1: position: {minNum}, fuel cost: {minDist}");
+        Logger.Log($"part1: position: {minNum}, fuel cost: <blue>{minDist}<r>");
     }
 
     private static void Part2(IEnumerable<int> nums)
@@ -53,6 +50,6 @@ internal class Day07 : Day
         // found by searching "factorial but with addition" because i'm smart like that.
         var (minDist, minNum) = Solve(nums, (d) => ((d * d) + d) / 2);
 
-        Logger.Log($"part2: position: {minNum}, fuel cost: {minDist}");
+        Logger.Log($"part2: position: {minNum}, fuel cost: <blue>{minDist}<r>");
     }
 }

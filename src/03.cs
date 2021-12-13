@@ -4,12 +4,9 @@ internal class Day03 : Day
 {
     internal override void Go()
     {
-        Logger.Log("Day 3");
-        Logger.Log("-----");
         var lines = File.ReadAllLines("inputs/03.txt");
         Part1(lines);
         Part2(lines);
-        Logger.Log("");
     }
 
     private static void Part1(IEnumerable<string> lines)
@@ -44,7 +41,7 @@ internal class Day03 : Day
             }
         }
 
-        Logger.Log($"part1: gamma rate: {gammaRate}, epsilon rate: {epsilonRate}, mult: {gammaRate * epsilonRate}");
+        Logger.Log($"part1: gamma rate: {gammaRate}, epsilon rate: {epsilonRate}, mult: <blue>{gammaRate * epsilonRate}<r>");
     }
 
     private static void Part2(IEnumerable<string> lines)
@@ -126,6 +123,6 @@ internal class Day03 : Day
             }
         }
 
-        Logger.Log($"part2: o2*co2 = {o2} * {co2} = {o2 * co2}");
+        Logger.Log($"part2: o2*co2 = {o2} * {co2} = <blue>{o2 * co2}<r>");
     }
 }

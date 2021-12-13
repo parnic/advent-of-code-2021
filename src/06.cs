@@ -12,8 +12,6 @@ internal class Day06 : Day
 
     internal override void Go()
     {
-        Logger.Log("Day 6");
-        Logger.Log("-----");
         var input = File.ReadAllText("inputs/06.txt");
         List<Fish> fish = new();
         foreach (var state in input.Split(','))
@@ -22,7 +20,6 @@ internal class Day06 : Day
         }
         Part1(fish);
         Part2(fish);
-        Logger.Log("");
     }
 
     private static void Part1(IEnumerable<Fish> fish)
@@ -48,7 +45,7 @@ internal class Day06 : Day
         }
 
 #pragma warning disable CA1829 // Use Length/Count property instead of Count() when available - Count is of type int, list might be longer than that
-        Logger.Log($"part1: #fish={list.LongCount()}");
+        Logger.Log($"part1: #fish=<blue>{list.LongCount()}<r>");
 #pragma warning restore CA1829 // Use Length/Count property instead of Count() when available
     }
 
@@ -75,6 +72,6 @@ internal class Day06 : Day
             fishAtState[8] = adders;
         }
 
-        Logger.Log($"part2: #fish={fishAtState.Values.Sum()}");
+        Logger.Log($"part2: #fish=<blue>{fishAtState.Values.Sum()}<r>");
     }
 }

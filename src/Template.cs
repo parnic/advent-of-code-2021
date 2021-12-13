@@ -16,13 +16,13 @@ internal class DayTemplate : Day
     {
         using var t = new Timer();
 
-        Logger.Log($"part1: ");
+        Logger.Log($"part1: <blue><r>");
     }
 
     private static void Part2(IEnumerable<string> lines)
     {
         using var t = new Timer();
 
-        Logger.Log($"part2: ");
+        Logger.Log($"part2: <blue><r>");
     }
 }

@@ -4,12 +4,9 @@ internal class Day10 : Day
 {
     internal override void Go()
     {
-        Logger.Log("Day 10");
-        Logger.Log("-----");
         var lines = File.ReadAllLines("inputs/10.txt");
         Part1(lines);
         Part2(lines);
-        Logger.Log("");
     }
 
     private static readonly List<char> Openers = new()
@@ -52,7 +49,7 @@ internal class Day10 : Day
             }
         }
 
-        Logger.Log($"part1: {score}");
+        Logger.Log($"part1: <blue>{score}<r>");
     }
 
     private static (bool, char) IsCorrupted(string line)
@@ -136,6 +133,6 @@ internal class Day10 : Day
 
         var final = scores.OrderBy(x => x).Skip(scores.Count / 2).First();
 
-        Logger.Log($"part2: {final}");
+        Logger.Log($"part2: <blue>{final}<r>");
     }
 }

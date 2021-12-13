@@ -4,8 +4,6 @@ internal class Day12 : Day
 {
     internal override void Go()
     {
-        Logger.Log("Day 12");
-        Logger.Log("-----");
         var lines = File.ReadAllLines("inputs/12.txt");
         var paths = new Dictionary<string, List<string>>();
         foreach (var line in lines)
@@ -40,7 +38,6 @@ internal class Day12 : Day
         }
         Part1(paths);
         Part2(paths);
-        Logger.Log("");
     }
 
     private static void Part1(Dictionary<string, List<string>> paths)
@@ -50,8 +47,8 @@ internal class Day12 : Day
         var validPaths = new List<List<string>>();
         FindPaths(paths, validPaths, new List<string>(){ "START" }, false);
 
-        Logger.Log($"part1: {validPaths.Count}");
-        //validPaths.ForEach(path => Logger.Log($"  {string.Join(',', path)}"));
+        Logger.Log($"part1: <blue>{validPaths.Count}<r>");
+        //validPaths.Select(x => string.Join(',', x)).OrderBy(x => x).ForEach(x => Logger.Log(x));
     }
 
     private static void FindPaths(Dictionary<string, List<string>> paths, List<List<string>> routes, List<string> currRoute, bool canVisitSmallCaveTwice, bool hasDoubledCave = false)
@@ -105,7 +102,7 @@ internal class Day12 : Day
         var validPaths = new List<List<string>>();
         FindPaths(paths, validPaths, new List<string>() { "START" }, true);
 
-        Logger.Log($"part2: {validPaths.Count}");
-        //validPaths.ForEach(path => Logger.Log($"  {string.Join(',', path)}"));
+        Logger.Log($"part2: <blue>{validPaths.Count}<r>");
+        //validPaths.Select(x => string.Join(',', x)).OrderBy(x => x).ForEach(x => Logger.Log(x));
     }
 }

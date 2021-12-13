@@ -4,8 +4,6 @@ internal class Day02 : Day
 {
     internal override void Go()
     {
-        Logger.Log("Day 2");
-        Logger.Log("-----");
         var lines = File.ReadAllLines("inputs/02.txt");
         var instructions = new List<Instruction>();
         foreach (var instruction in lines)
@@ -20,7 +18,6 @@ internal class Day02 : Day
 
         Part1(instructions);
         Part2(instructions);
-        Logger.Log("");
     }
 
     struct Instruction
@@ -57,7 +54,7 @@ internal class Day02 : Day
             }
         }
 
-        Logger.Log($"part1: h: {pos.h}, d: {pos.d}, result: {pos.h * pos.d}");
+        Logger.Log($"part1: h: {pos.h}, d: {pos.d}, result: <blue>{pos.h * pos.d}<r>");
     }
 
     private static void Part2(IEnumerable<Instruction> instructions)
@@ -84,6 +81,6 @@ internal class Day02 : Day
             }
         }
 
-        Logger.Log($"part2: h: {pos.h}, d: {pos.d}, result: {pos.h * pos.d}");
+        Logger.Log($"part2: h: {pos.h}, d: {pos.d}, result: <blue>{pos.h * pos.d}<r>");
     }
 }

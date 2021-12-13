@@ -9,7 +9,16 @@ namespace aoc2021
         {
             stopwatch.Stop();
             var (elapsed, unit) = ConvertElapsedToHumanReadable();
-            Logger.Log($"Took {elapsed:N1}{unit}");
+            var color = "[31m";
+            if (unit == "us" || (unit == "ms" && elapsed < 10))
+            {
+                color = "[32m";
+            }
+            else if (unit == "ms" && elapsed < 250)
+            {
+                color = "[33m";
+            }
+            Logger.Log($"Took \u001b{color}{elapsed:N1}{unit}\u001b[0m");
         }
 
         public (double elapsed, string unit) ConvertElapsedToHumanReadable()

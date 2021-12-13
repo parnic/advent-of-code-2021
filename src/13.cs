@@ -4,8 +4,6 @@ internal class Day13 : Day
 {
     internal override void Go()
     {
-        Logger.Log("Day 13");
-        Logger.Log("-----");
         var lines = File.ReadAllLines("inputs/13.txt");
         int phase = 0;
         var points = new HashSet<(int, int)>();
@@ -31,7 +29,6 @@ internal class Day13 : Day
         }
         Part1(points, folds);
         Part2(points, folds);
-        Logger.Log("");
     }
 
     private static void Fold(ICollection<(int x, int y)> points, char axis, int line)
@@ -60,7 +57,7 @@ internal class Day13 : Day
 
         Fold(grid, folds[0].axis, folds[0].line);
 
-        Logger.Log($"part1: {grid.Count}");
+        Logger.Log($"part1: <blue>{grid.Count}<r>");
     }
 
     private static void Part2(ICollection<(int x, int y)> grid, IList<(char axis, int line)> folds)
@@ -90,7 +87,7 @@ internal class Day13 : Day
                 sb.Append('\n');
             }
         }
-        Logger.Log(sb.ToString());
+        Logger.Log($"<blue>{sb}<r>");
         Logger.Log($"part2: {grid.Count}");
     }
 }

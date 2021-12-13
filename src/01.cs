@@ -4,12 +4,9 @@ internal class Day01 : Day
 {
     internal override void Go()
     {
-        Logger.Log("Day 1");
-        Logger.Log("-----");
         var lines = File.ReadAllLines("inputs/01.txt");
         Part1(lines);
         Part2(lines);
-        Logger.Log("");
     }
 
     private static void Part1(IEnumerable<string> lines)
@@ -30,7 +27,7 @@ internal class Day01 : Day
             lastDepth = depth;
         }
 
-        Logger.Log($"part1: {numIncreased}");
+        Logger.Log($"part1: <blue>{numIncreased}<r>");
     }
 
     private static void Part2(IEnumerable<string> lines)
@@ -64,6 +61,6 @@ internal class Day01 : Day
             lastTotal = total;
         }
 
-        Logger.Log($"part2: {numIncreased}");
+        Logger.Log($"part2: <blue>{numIncreased}<r>");
     }
 }

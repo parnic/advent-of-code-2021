@@ -4,8 +4,6 @@ internal class Day08 : Day
 {
     internal override void Go()
     {
-        Logger.Log("Day 8");
-        Logger.Log("-----");
         var lines = File.ReadAllLines("inputs/08.txt");
         List<(List<string>, List<string>)> puzzle = new();
         foreach (var line in lines)
@@ -15,7 +13,6 @@ internal class Day08 : Day
         }
         Part1(puzzle);
         Part2(puzzle);
-        Logger.Log("");
     }
 
     private static void Part1(List<(List<string>, List<string>)> lines)
@@ -39,7 +36,7 @@ internal class Day08 : Day
             }
         }
 
-        Logger.Log($"part1: {count}");
+        Logger.Log($"part1: <blue>{count}<r>");
     }
 
     private static void Part2(List<(List<string>, List<string>)> lines)
@@ -103,7 +100,7 @@ internal class Day08 : Day
             sum += num;
         }
 
-        Logger.Log($"part2: {sum}");
+        Logger.Log($"part2: <blue>{sum}<r>");
     }
 
     private static int FindNum(char[] segments, string num)
