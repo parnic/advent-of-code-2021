@@ -4,7 +4,7 @@ internal class Day13 : Day
 {
     internal override void Go()
     {
-        var lines = File.ReadAllLines("inputs/13.txt");
+        var lines = Util.ReadAllLines("inputs/13.txt");
         int phase = 0;
         var points = new HashSet<(int, int)>();
         var folds = new List<(char, int)>();

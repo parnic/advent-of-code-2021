@@ -4,7 +4,7 @@ internal class Day11 : Day
 {
     internal override void Go()
     {
-        var lines = File.ReadAllLines("inputs/11.txt");
+        var lines = Util.ReadAllLines("inputs/11.txt").ToArray();
         var grid = new byte[lines.Length, lines[0].Length];
         for (int i = 0; i < lines.Length; i++)
         {

@@ -4,7 +4,7 @@ internal class Day08 : Day
 {
     internal override void Go()
     {
-        var lines = File.ReadAllLines("inputs/08.txt");
+        var lines = Util.ReadAllLines("inputs/08.txt");
         List<(List<string>, List<string>)> puzzle = new();
         foreach (var line in lines)
         {

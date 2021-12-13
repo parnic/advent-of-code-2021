@@ -43,7 +43,7 @@ internal class Day05 : Day
 
     internal override void Go()
     {
-        var lines = File.ReadAllLines("inputs/05.txt");
+        var lines = Util.ReadAllLines("inputs/05.txt");
         List<Line> segments = new();
         foreach (var line in lines)
         {

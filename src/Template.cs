@@ -6,7 +6,7 @@ internal class DayTemplate : Day
     {
         Logger.Log("Day #");
         Logger.Log("-----");
-        var lines = File.ReadAllLines("inputs/##.txt");
+        var lines = Util.ReadAllLines("inputs/##.txt");
         Part1(lines);
         Part2(lines);
         Logger.Log("");

@@ -4,7 +4,7 @@ internal class Day01 : Day
 {
     internal override void Go()
     {
-        var lines = File.ReadAllLines("inputs/01.txt");
+        var lines = Util.ReadAllLines("inputs/01.txt");
         Part1(lines);
         Part2(lines);
     }
