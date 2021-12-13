@@ -78,11 +78,11 @@ internal class Day13 : Day
             {
                 if (grid.Contains((i, j)))
                 {
-                    sb.Append('#');
+                    sb.Append('█');
                 }
                 else
                 {
-                    sb.Append('.');
+                    sb.Append(' ');
                 }
             }
             if (i < maxX)
