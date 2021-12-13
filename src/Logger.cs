@@ -17,7 +17,7 @@ namespace aoc2021
                 .Replace("<r>", "\u001b[0m");
         }
 
-        private static readonly Regex colorCodes = new Regex(@"(\u001b\[(?:\d+;)?(?:\d+;)?\d+m)", RegexOptions.Compiled);
+        private static readonly Regex colorCodes = new(@"(\u001b\[(?:\d+;)?(?:\d+;)?\d+m)", RegexOptions.Compiled);
         private static string StripColorCodes(string msg)
         {
             var ret = msg;
