@@ -8,7 +8,7 @@ internal class Day13 : Day
         Logger.Log("-----");
         var lines = File.ReadAllLines("inputs/13.txt");
         int phase = 0;
-        var points = new List<(int, int)>();
+        var points = new HashSet<(int, int)>();
         var folds = new List<(char, int)>();
         foreach (var line in lines)
         {
@@ -29,145 +29,68 @@ internal class Day13 : Day
                 folds.Add((instruction[0].Last(), Convert.ToInt32(instruction[1])));
             }
         }
-        var grid = new bool[points.Max(x => x.Item1) + 1, points.Max(x => x.Item2) + 1];
-        foreach (var point in points)
-        {
-            grid[point.Item1, point.Item2] = true;
-        }
-        Part1(grid, folds);
-        Part2(grid, folds);
+        Part1(points, folds);
+        Part2(points, folds);
         Logger.Log("");
     }
 
-    private static void Part1(bool[,] grid, IEnumerable<(char, int)> folds)
+    private static void Fold(ICollection<(int x, int y)> points, char axis, int line)
     {
-        using var t = new Timer();
-
-        int maxX = grid.GetLength(0);
-        int maxY = grid.GetLength(1);
-
-        foreach (var fold in folds)
+        if (axis == 'x')
         {
-            for (int i = 0; i < grid.GetLength(0); i++)
+            points.Where(x => x.y > line).ToList().ForEach(x =>
             {
-                for (int j = 0; j < grid.GetLength(1); j++)
-                {
-                    var newX = i;
-                    var newY = j;
-                    if (fold.Item1 == 'y' && newX > fold.Item2)
-                    {
-                        newX = maxX - 1 - i;
-                    }
-                    if (fold.Item1 == 'x' && newY > fold.Item2)
-                    {
-                        newY = maxY - 1 - j;
-                    }
-
-                    if (grid[i,j])
-                    {
-                        grid[newX, newY] = grid[i, j];
-                    }
-                }
-            }
-
-            if (fold.Item1 == 'x')
-            {
-                maxY -= fold.Item2 + 1;
-            }
-            else if (fold.Item1 == 'y')
-            {
-                maxX -= fold.Item2 + 1;
-            }
-
-            break;
+                points.Add((x.x, x.y - (x.y - line) * 2));
+                points.Remove(x);
+            });
         }
-
-        int numDots = 0;
-        for (int i = 0; i < maxX; i++)
+        else
         {
-            for (int j = 0; j < maxY; j++)
+            points.Where(x => x.x > line).ToList().ForEach(x =>
             {
-                if (grid[i, j] == true)
-                {
-                    numDots++;
-                }
-            }
+                points.Add((x.x - (x.x - line) * 2, x.y));
+                points.Remove(x);
+            });
         }
-        Logger.Log($"part1: {numDots}");
     }
 
-    private static void Part2(bool[,] grid, IEnumerable<(char, int)> folds)
+    private static void Part1(ICollection<(int x, int y)> grid, IList<(char axis, int line)> folds)
     {
         using var t = new Timer();
 
-        int maxX = grid.GetLength(0);
-        int maxY = grid.GetLength(1);
+        Fold(grid, folds[0].axis, folds[0].line);
 
-        for (int foldNum = 0; foldNum < folds.Count(); foldNum++)
+        Logger.Log($"part1: {grid.Count}");
+    }
+
+    private static void Part2(ICollection<(int x, int y)> grid, IList<(char axis, int line)> folds)
+    {
+        using var t = new Timer();
+
+        folds.Skip(1).ForEach(x => Fold(grid, x.axis, x.line));
+        int maxX = grid.Max(x => x.x);
+        int maxY = grid.Max(x => x.y);
+
+        var sb = new System.Text.StringBuilder();
+        for (int i = 0; i <= maxX; i++)
         {
-            var fold = folds.ElementAt(foldNum);
-            if (foldNum > 0)
+            for (int j = 0; j <= maxY; j++)
             {
-                var iStart = 0;
-                var jStart = 0;
-                if (fold.Item1 == 'x')
+                if (grid.Contains((i, j)))
                 {
-                    jStart = fold.Item2 + 1;
-                }
-                if (fold.Item1 == 'y')
-                {
-                    iStart = fold.Item2 + 1;
-                }
-                for (int i = iStart; i < maxX; i++)
-                {
-                    for (int j = jStart; j < maxY; j++)
-                    {
-                        var newX = i;
-                        var newY = j;
-                        if (fold.Item1 == 'y' && newX > fold.Item2)
-                        {
-                            newX = maxX - 1 - i;
-                        }
-                        if (fold.Item1 == 'x' && newY > fold.Item2)
-                        {
-                            newY = maxY - 1 - j;
-                        }
-
-                        if (grid[i, j])
-                        {
-                            grid[newX, newY] = grid[i, j];
-                        }
-                    }
-                }
-            }
-
-            if (fold.Item1 == 'x')
-            {
-                maxY -= fold.Item2 + 1;
-            }
-            else if (fold.Item1 == 'y')
-            {
-                maxX -= fold.Item2 + 1;
-            }
-        }
-
-        int numDots = 0;
-        for (int i = 0; i < maxX; i++)
-        {
-            for (int j = 0; j < maxY; j++)
-            {
-                if (grid[i, j] == true)
-                {
-                    Console.Write("#");
-                    numDots++;
+                    sb.Append('#');
                 }
                 else
                 {
-                    Console.Write(".");
+                    sb.Append('.');
                 }
             }
-            Console.WriteLine();
+            if (i < maxX)
+            {
+                sb.Append('\n');
+            }
         }
-        Logger.Log($"part2: {numDots}");
+        Logger.Log(sb.ToString());
+        Logger.Log($"part2: {grid.Count}");
     }
 }
