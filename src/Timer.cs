@@ -5,6 +5,13 @@ namespace aoc2021
     internal class Timer : IDisposable
     {
         private readonly Stopwatch stopwatch = Stopwatch.StartNew();
+        private readonly string? name;
+
+        public Timer(string? inName = null)
+        {
+            name = inName;
+        }
+
         public void Dispose()
         {
             stopwatch.Stop();
@@ -18,7 +25,7 @@ namespace aoc2021
             {
                 color = "[33m";
             }
-            Logger.Log($"Took \u001b{color}{elapsed:N1}{unit}\u001b[0m");
+            Logger.Log($"{name}{(!string.IsNullOrEmpty(name) ? " t" : "T")}ook \u001b{color}{elapsed:N1}{unit}\u001b[0m");
         }
 
         public (double elapsed, string unit) ConvertElapsedToHumanReadable()
