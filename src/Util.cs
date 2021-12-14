@@ -22,11 +22,12 @@ internal static class Util
                 lines.Add(line);
             }
 
-            return lines;
+            if (lines.Any())
+            {
+                return lines;
+            }
         }
-        else
-        {
-            return File.ReadAllLines(filename);
-        }
+
+        return File.ReadAllLines(filename);
     }
 }
