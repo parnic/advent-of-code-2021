@@ -33,6 +33,13 @@ internal class Day14 : Day
 
         string curr = template;
 
+        Dictionary<char, int> frequencies = new();
+        foreach (var pair in rules)
+        {
+            frequencies[pair.Key[0]] = 0;
+            frequencies[pair.Key[1]] = 0;
+        }
+
         for (int i = 0; i < 10; i++)
         {
             StringBuilder sb = new();
@@ -41,24 +48,18 @@ internal class Day14 : Day
                 sb.Append(curr[j]);
                 sb.Append(rules[curr[j..(j + 2)]]);
             }
-            sb.Append(curr[curr.Length - 1]);
+            sb.Append(curr[^1]);
             curr = sb.ToString();
         }
 
-        Dictionary<char, int> frequency = new();
         foreach (var c in curr)
         {
-            if (!frequency.ContainsKey(c))
-            {
-                frequency.Add(c, 0);
-            }
-
-            frequency[c]++;
+            frequencies[c]++;
         }
-        var least = frequency.MinBy(x => x.Value);
-        var most = frequency.MaxBy(x => x.Value);
+        var least = frequencies.Min(x => x.Value);
+        var most = frequencies.Max(x => x.Value);
 
-        Logger.Log($"part1: <blue>{most.Value - least.Value}<r>");
+        Logger.Log($"part1: <blue>{most - least}<r>");
     }
 
     private static void Part2(string template, Dictionary<string, char> rules)
@@ -69,15 +70,9 @@ internal class Day14 : Day
         Dictionary<char, long> frequencies = new();
         foreach (var pair in rules)
         {
-            pairs.Add(pair.Key, 0);
-            if (!frequencies.ContainsKey(pair.Key[0]))
-            {
-                frequencies.Add(pair.Key[0], 0);
-            }
-            if (!frequencies.ContainsKey(pair.Key[1]))
-            {
-                frequencies.Add(pair.Key[1], 0);
-            }
+            pairs[pair.Key] = 0;
+            frequencies[pair.Key[0]] = 0;
+            frequencies[pair.Key[1]] = 0;
         }
         for (int i = 0; i < template.Length - 1; i++)
         {
@@ -89,7 +84,7 @@ internal class Day14 : Day
 
         for (int round = 0; round < 40; round++)
         {
-            foreach (var pair in pairs.Where(x => x.Value > 0).ToList())
+            foreach (var pair in pairs.ToList())
             {
                 pairs[pair.Key] -= pair.Value;
                 frequencies[rules[pair.Key]] += pair.Value;
@@ -101,9 +96,20 @@ internal class Day14 : Day
             }
         }
 
-        var least = frequencies.MinBy(x => x.Value);
-        var most = frequencies.MaxBy(x => x.Value);
+        long least = long.MaxValue;
+        long most = long.MinValue;
+        foreach (var pair in frequencies)
+        {
+            if (pair.Value < least)
+            {
+                least = pair.Value;
+            }
+            if (pair.Value > most)
+            {
+                most = pair.Value;
+            }
+        }
 
-        Logger.Log($"part2: <blue>{most.Value - least.Value}<r>");
+        Logger.Log($"part2: <blue>{most - least}<r>");
     }
 }
