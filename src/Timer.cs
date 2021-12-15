@@ -6,15 +6,27 @@ namespace aoc2021
     {
         private readonly Stopwatch stopwatch = Stopwatch.StartNew();
         private readonly string? name;
+        private bool stopped = false;
 
         public Timer(string? inName = null)
         {
             name = inName;
         }
 
+        public void Stop()
+        {
+            if (stopped)
+            {
+                return;
+            }
+
+            stopwatch.Stop();
+            stopped = true;
+        }
+
         public void Dispose()
         {
-            stopwatch.Stop();
+            Stop();
             var (elapsed, unit) = ConvertElapsedToHumanReadable();
             var color = "[31m";
             if (unit == "us" || (unit == "ms" && elapsed < 10))
