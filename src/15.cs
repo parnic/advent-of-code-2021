@@ -42,30 +42,36 @@ internal class Day15 : Day
     private static int Solve(byte[,] riskMap)
     {
         var start = (x: 0, y: 0);
-        var end = (x: riskMap.GetLength(0) - 1, y: riskMap.GetLength(1) - 1);
+        var (xDim, yDim) = (riskMap.GetLength(0), riskMap.GetLength(1));
+        var end = (x: xDim - 1, y: yDim - 1);
 
         var q = new PriorityQueue<(int, int), int>();
         q.Enqueue(start, 0);
 
-        var totalRiskMap = new Dictionary<(int, int), int>
+        var totalRiskMap = new int[xDim, yDim];
+        for (int x = 0; x < xDim; x++)
         {
-            [start] = 0
-        };
+            for (int y = 0; y < yDim; y++)
+            {
+                totalRiskMap[x, y] = int.MaxValue;
+            }
+        }
+        totalRiskMap[start.x, start.y] = 0;
 
         for (var currPoint = start; currPoint != end; currPoint = q.Dequeue())
         {
             foreach (var adjacent in Adjacent(riskMap, currPoint.x, currPoint.y))
             {
-                var totalRiskThroughP = totalRiskMap[currPoint] + riskMap[adjacent.x, adjacent.y];
-                if (totalRiskThroughP < totalRiskMap.GetValueOrDefault(adjacent, int.MaxValue))
+                var totalRiskThroughP = totalRiskMap[currPoint.x, currPoint.y] + riskMap[adjacent.x, adjacent.y];
+                if (totalRiskThroughP < totalRiskMap[adjacent.x, adjacent.y])
                 {
-                    totalRiskMap[adjacent] = totalRiskThroughP;
+                    totalRiskMap[adjacent.x, adjacent.y] = totalRiskThroughP;
                     q.Enqueue(adjacent, totalRiskThroughP);
                 }
             }
         }
 
-        return totalRiskMap[end];
+        return totalRiskMap[end.x, end.y];
     }
 
     private static void Part1(byte[,] grid)
