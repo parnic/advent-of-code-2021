@@ -19,25 +19,15 @@ internal class Day15 : Day
         Part2(grid);
     }
 
-    private static IEnumerable<(int x, int y)> Adjacent(byte[,] grid, int i, int j)
+    private static readonly (int x, int y)[] Neighbors =
     {
-        if (i > 0)
-        {
-            yield return (i - 1, j);
-        }
-        if (j > 0)
-        {
-            yield return (i, j - 1);
-        }
-        if (i < grid.GetLength(0) - 1)
-        {
-            yield return (i + 1, j);
-        }
-        if (j < grid.GetLength(1) - 1)
-        {
-            yield return (i, j + 1);
-        }
-    }
+        (-1,  0),
+        ( 0, -1),
+        ( 1,  0),
+        ( 0,  1),
+    };
+
+    private static bool IsValidPoint(byte[,] grid, int x, int y) => x >= 0 && x < grid.GetLength(0) && y >= 0 && y < grid.GetLength(1);
 
     private static int Solve(byte[,] riskMap)
     {
@@ -60,13 +50,18 @@ internal class Day15 : Day
 
         for (var currPoint = start; currPoint != end; currPoint = q.Dequeue())
         {
-            foreach (var adjacent in Adjacent(riskMap, currPoint.x, currPoint.y))
+            foreach (var adjacent in Neighbors)
             {
-                var totalRiskThroughP = totalRiskMap[currPoint.x, currPoint.y] + riskMap[adjacent.x, adjacent.y];
-                if (totalRiskThroughP < totalRiskMap[adjacent.x, adjacent.y])
+                var (x, y) = (currPoint.x + adjacent.x, currPoint.y + adjacent.y);
+                if (!IsValidPoint(riskMap, x, y))
                 {
-                    totalRiskMap[adjacent.x, adjacent.y] = totalRiskThroughP;
-                    q.Enqueue(adjacent, totalRiskThroughP);
+                    continue;
+                }
+                var totalRiskThroughP = totalRiskMap[currPoint.x, currPoint.y] + riskMap[x, y];
+                if (totalRiskThroughP < totalRiskMap[x, y])
+                {
+                    totalRiskMap[x, y] = totalRiskThroughP;
+                    q.Enqueue((x, y), totalRiskThroughP);
                 }
             }
         }
