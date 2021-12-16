@@ -119,46 +119,18 @@ internal class Day16 : Day
             done = done || (totalLength != 0 && lengthProcessed == totalLength);
         }
 
-        long result = 0;
-        switch (inType)
+        var result = inType switch
         {
-            case 0:
-                result = operands.Sum(x => x);
-                break;
-
-            case 1:
-                result = operands.Aggregate(1L, (agg, x) => x * agg);
-                break;
-
-            case 2:
-                result = operands.Min(x => x);
-                break;
-
-            case 3:
-                result = operands.Max(x => x);
-                break;
-
-            case 4:
-                throw new Exception();
-
-            case 5:
-                System.Diagnostics.Debug.Assert(operands.Count == 2);
-                result = operands[0] > operands[1] ? 1 : 0;
-                break;
-
-            case 6:
-                System.Diagnostics.Debug.Assert(operands.Count == 2);
-                result = operands[0] < operands[1] ? 1 : 0;
-                break;
-
-            case 7:
-                System.Diagnostics.Debug.Assert(operands.Count == 2);
-                result = operands[0] == operands[1] ? 1 : 0;
-                break;
-
-            default:
-                throw new Exception();
-        }
+            0 => operands.Sum(),
+            1 => operands.Aggregate(1L, (agg, x) => x * agg),
+            2 => operands.Min(),
+            3 => operands.Max(),
+            4 => throw new Exception(),
+            5 => operands[0] > operands[1] ? 1 : 0,
+            6 => operands[0] < operands[1] ? 1 : 0,
+            7 => operands[0] == operands[1] ? 1 : 0,
+            _ => throw new Exception(),
+        };
 
         return (versionTotal, result);
     }
