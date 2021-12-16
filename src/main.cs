@@ -33,7 +33,8 @@ else
         "12" => new Day12(),
         "13" => new Day13(),
         "14" => new Day14(),
-        _ => new Day15(),
+        "15" => new Day15(),
+        _ => new Day16(),
     };
     day.Go();
 }
