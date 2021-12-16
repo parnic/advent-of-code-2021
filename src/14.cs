@@ -59,7 +59,7 @@ internal class Day14 : Day
         var least = frequencies.Min(x => x.Value);
         var most = frequencies.Max(x => x.Value);
 
-        Logger.Log($"part1: <blue>{most - least}<r>");
+        Logger.Log($"<+black>> part1: <+white>{most - least}<r>");
     }
 
     private static void Part2(string template, Dictionary<string, char> rules)
@@ -110,6 +110,6 @@ internal class Day14 : Day
             }
         }
 
-        Logger.Log($"part2: <blue>{most - least}<r>");
+        Logger.Log($"<+black>> part2: <+white>{most - least}<r>");
     }
 }

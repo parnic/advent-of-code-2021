@@ -39,7 +39,7 @@ func part1(depths []int) {
 		lastDepth = depth
 	}
 
-	fmt.Println("part1: increased:", numIncreased)
+	fmt.Println("<+black>> part1: increased:", numIncreased)
 }
 
 func part2(depths []int) {
@@ -65,5 +65,5 @@ func part2(depths []int) {
 		lastTotal = total
 	}
 
-	fmt.Println("part2: increased:", numIncreased)
+	fmt.Println("<+black>> part2: increased:", numIncreased)
 }

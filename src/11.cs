@@ -99,7 +99,7 @@ internal class Day11 : Day
             }
         }
 
-        Logger.Log($"part1: <blue>{numFlashes}<r>");
+        Logger.Log($"<+black>> part1: <+white>{numFlashes}<r>");
     }
 
     private static void Part2(byte[,] grid)
@@ -132,6 +132,6 @@ internal class Day11 : Day
             }
         }
 
-        Logger.Log($"part2: <blue>{step}<r>");
+        Logger.Log($"<+black>> part2: <+white>{step}<r>");
     }
 }

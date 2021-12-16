@@ -23,12 +23,12 @@ internal class Day16 : Day
 
     private static void Part1(long versionTotal)
     {
-        Logger.Log($"part1: version total: <blue>{versionTotal}<r>");
+        Logger.Log($"<+black>> part1: version total: <+white>{versionTotal}<r>");
     }
 
     private static void Part2(long result)
     {
-        Logger.Log($"part2: operator result: <blue>{result}<r>");
+        Logger.Log($"<+black>> part2: operator result: <+white>{result}<r>");
     }
 
     private static (long versionTotal, long result) DecodePacket(string binary, ref int idx)

@@ -36,7 +36,7 @@ internal class Day08 : Day
             }
         }
 
-        Logger.Log($"part1: <blue>{count}<r>");
+        Logger.Log($"<+black>> part1: <+white>{count}<r>");
     }
 
     private static void Part2(List<(List<string>, List<string>)> lines)
@@ -100,7 +100,7 @@ internal class Day08 : Day
             sum += num;
         }
 
-        Logger.Log($"part2: <blue>{sum}<r>");
+        Logger.Log($"<+black>> part2: <+white>{sum}<r>");
     }
 
     private static int FindNum(char[] segments, string num)

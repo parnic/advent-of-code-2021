@@ -45,7 +45,7 @@ internal class Day06 : Day
         }
 
 #pragma warning disable CA1829 // Use Length/Count property instead of Count() when available - Count is of type int, list might be longer than that
-        Logger.Log($"part1: #fish=<blue>{list.LongCount()}<r>");
+        Logger.Log($"<+black>> part1: #fish=<+white>{list.LongCount()}<r>");
 #pragma warning restore CA1829 // Use Length/Count property instead of Count() when available
     }
 
@@ -72,6 +72,6 @@ internal class Day06 : Day
             fishAtState[8] = adders;
         }
 
-        Logger.Log($"part2: #fish=<blue>{fishAtState.Values.Sum()}<r>");
+        Logger.Log($"<+black>> part2: #fish=<+white>{fishAtState.Values.Sum()}<r>");
     }
 }

@@ -27,7 +27,7 @@ internal class Day01 : Day
             lastDepth = depth;
         }
 
-        Logger.Log($"part1: <blue>{numIncreased}<r>");
+        Logger.Log($"<+black>> part1: <+white>{numIncreased}<r>");
     }
 
     private static void Part2(IEnumerable<string> lines)
@@ -61,6 +61,6 @@ internal class Day01 : Day
             lastTotal = total;
         }
 
-        Logger.Log($"part2: <blue>{numIncreased}<r>");
+        Logger.Log($"<+black>> part2: <+white>{numIncreased}<r>");
     }
 }

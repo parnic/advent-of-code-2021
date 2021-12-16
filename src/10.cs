@@ -49,7 +49,7 @@ internal class Day10 : Day
             }
         }
 
-        Logger.Log($"part1: <blue>{score}<r>");
+        Logger.Log($"<+black>> part1: <+white>{score}<r>");
     }
 
     private static (bool, char) IsCorrupted(string line)
@@ -133,6 +133,6 @@ internal class Day10 : Day
 
         var final = scores.OrderBy(x => x).Skip(scores.Count / 2).First();
 
-        Logger.Log($"part2: <blue>{final}<r>");
+        Logger.Log($"<+black>> part2: <+white>{final}<r>");
     }
 }

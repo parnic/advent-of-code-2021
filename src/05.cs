@@ -72,14 +72,14 @@ internal class Day05 : Day
     {
         using var t = new Timer();
         int numPointsGreater = Solve(lines, (line) => !(line.Start.X == line.End.X || line.Start.Y == line.End.Y));
-        Logger.Log($"part1: <blue>{numPointsGreater}<r>");
+        Logger.Log($"<+black>> part1: <+white>{numPointsGreater}<r>");
     }
 
     private static void Part2(IEnumerable<Line> lines)
     {
         using var t = new Timer();
         int numPointsGreater = Solve(lines, (line) => false);
-        Logger.Log($"part2: <blue>{numPointsGreater}<r>");
+        Logger.Log($"<+black>> part2: <+white>{numPointsGreater}<r>");
     }
 
     private static int Solve(IEnumerable<Line> lines, Func<Line, bool> filter)

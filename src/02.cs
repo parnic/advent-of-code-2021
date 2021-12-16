@@ -54,7 +54,7 @@ internal class Day02 : Day
             }
         }
 
-        Logger.Log($"part1: h: {pos.h}, d: {pos.d}, result: <blue>{pos.h * pos.d}<r>");
+        Logger.Log($"<+black>> part1: h: {pos.h}, d: {pos.d}, result: <+white>{pos.h * pos.d}<r>");
     }
 
     private static void Part2(IEnumerable<Instruction> instructions)
@@ -81,6 +81,6 @@ internal class Day02 : Day
             }
         }
 
-        Logger.Log($"part2: h: {pos.h}, d: {pos.d}, result: <blue>{pos.h * pos.d}<r>");
+        Logger.Log($"<+black>> part2: h: {pos.h}, d: {pos.d}, result: <+white>{pos.h * pos.d}<r>");
     }
 }

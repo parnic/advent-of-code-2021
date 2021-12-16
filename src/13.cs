@@ -57,7 +57,7 @@ internal class Day13 : Day
 
         Fold(grid, folds[0].axis, folds[0].line);
 
-        Logger.Log($"part1: <blue>{grid.Count}<r>");
+        Logger.Log($"<+black>> part1: <+white>{grid.Count}<r>");
     }
 
     private static void Part2(ICollection<(int x, int y)> grid, IList<(char axis, int line)> folds)
@@ -87,7 +87,7 @@ internal class Day13 : Day
                 sb.Append('\n');
             }
         }
-        Logger.Log($"<blue>{sb}<r>");
-        Logger.Log($"part2: {grid.Count}");
+        Logger.Log($"<+white>{sb}<r>");
+        Logger.Log($"<+black>> part2: {grid.Count}<r>");
     }
 }

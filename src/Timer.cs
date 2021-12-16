@@ -28,16 +28,16 @@ namespace aoc2021
         {
             Stop();
             var (elapsed, unit) = ConvertElapsedToHumanReadable();
-            var color = "[31m";
+            var color = "<red>";
             if (unit == "us" || (unit == "ms" && elapsed < 10))
             {
-                color = "[32m";
+                color = "<green>";
             }
             else if (unit == "ms" && elapsed < 250)
             {
-                color = "[33m";
+                color = "<yellow>";
             }
-            Logger.Log($"{name}{(!string.IsNullOrEmpty(name) ? " t" : "T")}ook \u001b{color}{elapsed:N1}{unit}\u001b[0m");
+            Logger.Log($"<cyan>{name}{(!string.IsNullOrEmpty(name) ? " t" : "T")}ook {color}{elapsed:N1}{unit}<r>");
         }
 
         public (double elapsed, string unit) ConvertElapsedToHumanReadable()

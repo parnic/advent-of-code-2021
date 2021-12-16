@@ -24,7 +24,7 @@ internal class Day09 : Day
         var lowPoints = GetLowPoints(grid);
         var totalRisk = lowPoints.Sum(x => grid[x.Item1, x.Item2] + 1);
 
-        Logger.Log($"part1: <blue>{totalRisk}<r>");
+        Logger.Log($"<+black>> part1: <+white>{totalRisk}<r>");
     }
 
     private static List<(int, int)> GetLowPoints(byte[,] grid)
@@ -72,7 +72,7 @@ internal class Day09 : Day
         }
         var top3Mult = basins.OrderByDescending(x => x).Take(3).Aggregate(1, (x, y) => x * y);
 
-        Logger.Log($"part2: <blue>{top3Mult}<r>");
+        Logger.Log($"<+black>> part2: <+white>{top3Mult}<r>");
     }
 
     private static List<(int, int)> GetBasinSize(byte[,] grid, int i, int j)

@@ -75,7 +75,7 @@ internal class Day15 : Day
 
         var risk = Solve(grid);
 
-        Logger.Log($"part1: <blue>{risk}<r>");
+        Logger.Log($"<+black>> part1: <+white>{risk}<r>");
     }
 
     private static byte[,] ScaleUp(byte[,] map)
@@ -107,6 +107,6 @@ internal class Day15 : Day
 
         var risk = Solve(ScaleUp(grid));
 
-        Logger.Log($"part2: <blue>{risk}<r>");
+        Logger.Log($"<+black>> part2: <+white>{risk}<r>");
     }
 }

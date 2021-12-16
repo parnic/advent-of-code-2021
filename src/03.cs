@@ -41,7 +41,7 @@ internal class Day03 : Day
             }
         }
 
-        Logger.Log($"part1: gamma rate: {gammaRate}, epsilon rate: {epsilonRate}, mult: <blue>{gammaRate * epsilonRate}<r>");
+        Logger.Log($"<+black>> part1: gamma rate: {gammaRate}, epsilon rate: {epsilonRate}, mult: <+white>{gammaRate * epsilonRate}<r>");
     }
 
     private static void Part2(IEnumerable<string> lines)
@@ -123,6 +123,6 @@ internal class Day03 : Day
             }
         }
 
-        Logger.Log($"part2: o2*co2 = {o2} * {co2} = <blue>{o2 * co2}<r>");
+        Logger.Log($"<+black>> part2: o2*co2 = {o2} * {co2} = <+white>{o2 * co2}<r>");
     }
 }

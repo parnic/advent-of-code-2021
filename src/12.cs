@@ -47,7 +47,7 @@ internal class Day12 : Day
         var validPaths = new List<List<string>>();
         FindPaths(paths, validPaths, new List<string>(){ "START" }, false);
 
-        Logger.Log($"part1: <blue>{validPaths.Count}<r>");
+        Logger.Log($"<+black>> part1: <+white>{validPaths.Count}<r>");
         //validPaths.Select(x => string.Join(',', x)).OrderBy(x => x).ForEach(x => Logger.Log(x));
     }
 
@@ -102,7 +102,7 @@ internal class Day12 : Day
         var validPaths = new List<List<string>>();
         FindPaths(paths, validPaths, new List<string>() { "START" }, true);
 
-        Logger.Log($"part2: <blue>{validPaths.Count}<r>");
+        Logger.Log($"<+black>> part2: <+white>{validPaths.Count}<r>");
         //validPaths.Select(x => string.Join(',', x)).OrderBy(x => x).ForEach(x => Logger.Log(x));
     }
 }
