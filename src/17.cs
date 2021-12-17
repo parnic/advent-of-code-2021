@@ -148,7 +148,7 @@ internal class Day17 : Day
             while (true)
             {
                 guesspt = Step(guesspt, ref testVel);
-                if (!bounds.IsHigh(guesspt) && !bounds.IsLow(guesspt))
+                if (bounds.YInRange(guesspt))
                 {
                     if (guess > maxSuccessYVel)
                     {
