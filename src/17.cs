@@ -64,26 +64,26 @@ internal class Day17 : Day
         return (pt.x, pt.y);
     }
 
-    private static void Part1(Dictionary<(int x, int y), int> successes)
+    private static void Part1(List<((int x, int y) pt, int height)> successes)
     {
-        var max = successes.MaxBy(vel => vel.Value);
-        var numOthers = successes.Count(vel => vel.Value == max.Value);
+        var max = successes.MaxBy(vel => vel.height);
+        var numOthers = successes.Count(vel => vel.height == max.height);
 
-        Logger.Log($"<+black>> part1: highest Y was at velocity {max.Key} (and {numOthers} other{(numOthers == 1 ? "" : "s")}): <+white>{max.Value}<r>");
+        Logger.Log($"<+black>> part1: highest Y was at velocity {max.pt} (and {numOthers} other{(numOthers == 1 ? "" : "s")}): <+white>{max.height}<r>");
     }
 
-    private static void Part2(Dictionary<(int x, int y), int> successes)
+    private static void Part2(List<((int x, int y) pt, int height)> successes)
     {
         Logger.Log($"<+black>> part2: #successful velocities: <+white>{successes.Count}<r>");
     }
 
-    private static Dictionary<(int x, int y), int> GetSuccessfulVelocities(Rectangle bounds)
+    private static List<((int x, int y) pt, int height)> GetSuccessfulVelocities(Rectangle bounds)
     {
         var (minX, maxX) = GetXVelocityRange(bounds);
         var (minY, maxY) = GetYVelocityRange(bounds);
 
         (int x, int y) pt;
-        Dictionary<(int x, int y), int> successes = new();
+        List<((int x, int y) pt, int height)> successes = new();
         for (int x = minX; x <= maxX; x++)
         {
             for (int y = minY; y <= maxY; y++)
@@ -103,7 +103,7 @@ internal class Day17 : Day
 
                 if (bounds.Contains(pt))
                 {
-                    successes.Add(startingVelocity, currHighestY);
+                    successes.Add((startingVelocity, currHighestY));
                 }
             }
         }
