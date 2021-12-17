@@ -66,10 +66,10 @@ internal class Day17 : Day
 
     private static void Part1(List<((int x, int y) pt, int height)> successes)
     {
-        var max = successes.MaxBy(vel => vel.height);
-        var numOthers = successes.Count(vel => vel.height == max.height);
+        var (pt, height) = successes.MaxBy(vel => vel.height);
+        var numOthers = successes.Count(vel => vel.height == height);
 
-        Logger.Log($"<+black>> part1: highest Y was at velocity {max.pt} (and {numOthers} other{(numOthers == 1 ? "" : "s")}): <+white>{max.height}<r>");
+        Logger.Log($"<+black>> part1: highest Y was at velocity {pt} (and {numOthers} other{(numOthers == 1 ? "" : "s")}): <+white>{height}<r>");
     }
 
     private static void Part2(List<((int x, int y) pt, int height)> successes)
