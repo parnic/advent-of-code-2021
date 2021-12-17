@@ -36,6 +36,7 @@ internal class Day08 : Day
             }
         }
 
+        t.Stop();
         Logger.Log($"<+black>> part1: <+white>{count}<r>");
     }
 
@@ -100,6 +101,7 @@ internal class Day08 : Day
             sum += num;
         }
 
+        t.Stop();
         Logger.Log($"<+black>> part2: <+white>{sum}<r>");
     }
 

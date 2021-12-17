@@ -41,6 +41,7 @@ internal class Day03 : Day
             }
         }
 
+        t.Stop();
         Logger.Log($"<+black>> part1: gamma rate: {gammaRate}, epsilon rate: {epsilonRate}, mult: <+white>{gammaRate * epsilonRate}<r>");
     }
 
@@ -123,6 +124,7 @@ internal class Day03 : Day
             }
         }
 
+        t.Stop();
         Logger.Log($"<+black>> part2: o2*co2 = {o2} * {co2} = <+white>{o2 * co2}<r>");
     }
 }

@@ -39,6 +39,7 @@ internal class Day07 : Day
 
         var (minDist, minNum) = Solve(nums, (d) => d);
 
+        t.Stop();
         Logger.Log($"<+black>> part1: position: {minNum}, fuel cost: <+white>{minDist}<r>");
     }
 
@@ -50,6 +51,7 @@ internal class Day07 : Day
         // found by searching "factorial but with addition" because i'm smart like that.
         var (minDist, minNum) = Solve(nums, (d) => ((d * d) + d) / 2);
 
+        t.Stop();
         Logger.Log($"<+black>> part2: position: {minNum}, fuel cost: <+white>{minDist}<r>");
     }
 }

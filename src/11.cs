@@ -99,6 +99,7 @@ internal class Day11 : Day
             }
         }
 
+        t.Stop();
         Logger.Log($"<+black>> part1: <+white>{numFlashes}<r>");
     }
 
@@ -132,6 +133,7 @@ internal class Day11 : Day
             }
         }
 
+        t.Stop();
         Logger.Log($"<+black>> part2: <+white>{step}<r>");
     }
 }

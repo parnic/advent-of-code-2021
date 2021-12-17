@@ -13,6 +13,9 @@ internal class DayTemplate : Day
     {
         using var t = new Timer();
 
+
+
+        t.Stop();
         Logger.Log($"<+black>> part1: <+white><r>");
     }
 
@@ -20,6 +23,9 @@ internal class DayTemplate : Day
     {
         using var t = new Timer();
 
+
+
+        t.Stop();
         Logger.Log($"<+black>> part2: <+white><r>");
     }
 }

@@ -57,6 +57,7 @@ internal class Day13 : Day
 
         Fold(grid, folds[0].axis, folds[0].line);
 
+        t.Stop();
         Logger.Log($"<+black>> part1: <+white>{grid.Count}<r>");
     }
 
@@ -87,6 +88,8 @@ internal class Day13 : Day
                 sb.Append('\n');
             }
         }
+
+        t.Stop();
         Logger.Log($"<+white>{sb}<r>");
         Logger.Log($"<+black>> part2: {grid.Count}<r>");
     }

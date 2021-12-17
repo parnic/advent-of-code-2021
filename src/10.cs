@@ -49,6 +49,7 @@ internal class Day10 : Day
             }
         }
 
+        t.Stop();
         Logger.Log($"<+black>> part1: <+white>{score}<r>");
     }
 
@@ -133,6 +134,7 @@ internal class Day10 : Day
 
         var final = scores.OrderBy(x => x).Skip(scores.Count / 2).First();
 
+        t.Stop();
         Logger.Log($"<+black>> part2: <+white>{final}<r>");
     }
 }

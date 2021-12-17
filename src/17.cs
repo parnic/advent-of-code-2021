@@ -35,8 +35,12 @@ internal class Day17 : Day
         bounds.minY = Convert.ToInt32(ys[0][(ys[0].IndexOf('=') + 1)..]);
         bounds.maxY = Convert.ToInt32(ys[1]);
 
-        Part1(bounds);
-        Part2(bounds);
+        using var t = new Timer();
+        var successes = GetSuccessfulVelocities(bounds);
+        t.Stop();
+
+        Part1(successes);
+        Part2(successes);
     }
 
     private static (int x, int y) Step((int x, int y) pt, ref (int x, int y) velocity)
@@ -56,23 +60,16 @@ internal class Day17 : Day
         return (pt.x, pt.y);
     }
 
-    private static void Part1(Rectangle bounds)
+    private static void Part1(Dictionary<(int x, int y), int> successes)
     {
-        using var t = new Timer();
-
-        var successes = GetSuccessfulVelocities(bounds);
         var max = successes.MaxBy(vel => vel.Value);
         var numOthers = successes.Count(vel => vel.Value == max.Value);
 
         Logger.Log($"<+black>> part1: highest Y was at velocity {max.Key} (and {numOthers} other{(numOthers == 1 ? "" : "s")}): <+white>{max.Value}<r>");
     }
 
-    private static void Part2(Rectangle bounds)
+    private static void Part2(Dictionary<(int x, int y), int> successes)
     {
-        using var t = new Timer();
-
-        var successes = GetSuccessfulVelocities(bounds);
-
         Logger.Log($"<+black>> part2: #successful velocities: <+white>{successes.Count}<r>");
     }
 
@@ -141,21 +138,16 @@ internal class Day17 : Day
     private static (int min, int max) GetYVelocityRange(Rectangle bounds)
     {
         int maxSuccessYVel = int.MinValue;
+        int maxVelY = Math.Abs(bounds.minY) - 1;
         int guess = bounds.minY;
-        bool foundYVals = false;
-        while (!foundYVals)
+        while (guess <= maxVelY)
         {
             var guesspt = (0, 0);
             var testVel = (0, guess);
-            bool lastWasAbove = false;
             while (true)
             {
                 guesspt = Step(guesspt, ref testVel);
-                if (bounds.IsHigh(guesspt))
-                {
-                    lastWasAbove = true;
-                }
-                else if (!bounds.IsLow(guesspt))
+                if (!bounds.IsHigh(guesspt) && !bounds.IsLow(guesspt))
                 {
                     if (guess > maxSuccessYVel)
                     {
@@ -163,14 +155,8 @@ internal class Day17 : Day
                     }
                     break;
                 }
-                else
+                else if (bounds.IsLow(guesspt))
                 {
-                    // need to find a better way to choose a reasonable guess max...
-                    if (lastWasAbove && guess > bounds.minY * -4)
-                    {
-                        foundYVals = true;
-                    }
-
                     break;
                 }
             }

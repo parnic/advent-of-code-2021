@@ -27,6 +27,7 @@ internal class Day01 : Day
             lastDepth = depth;
         }
 
+        t.Stop();
         Logger.Log($"<+black>> part1: <+white>{numIncreased}<r>");
     }
 
@@ -61,6 +62,7 @@ internal class Day01 : Day
             lastTotal = total;
         }
 
+        t.Stop();
         Logger.Log($"<+black>> part2: <+white>{numIncreased}<r>");
     }
 }

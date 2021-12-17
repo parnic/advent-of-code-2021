@@ -75,6 +75,7 @@ internal class Day15 : Day
 
         var risk = Solve(grid);
 
+        t.Stop();
         Logger.Log($"<+black>> part1: <+white>{risk}<r>");
     }
 
@@ -107,6 +108,7 @@ internal class Day15 : Day
 
         var risk = Solve(ScaleUp(grid));
 
+        t.Stop();
         Logger.Log($"<+black>> part2: <+white>{risk}<r>");
     }
 }

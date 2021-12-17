@@ -72,6 +72,7 @@ internal class Day05 : Day
     {
         using var t = new Timer();
         int numPointsGreater = Solve(lines, (line) => !(line.Start.X == line.End.X || line.Start.Y == line.End.Y));
+        t.Stop();
         Logger.Log($"<+black>> part1: <+white>{numPointsGreater}<r>");
     }
 
@@ -79,6 +80,7 @@ internal class Day05 : Day
     {
         using var t = new Timer();
         int numPointsGreater = Solve(lines, (line) => false);
+        t.Stop();
         Logger.Log($"<+black>> part2: <+white>{numPointsGreater}<r>");
     }
 

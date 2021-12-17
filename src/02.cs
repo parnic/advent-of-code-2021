@@ -54,6 +54,7 @@ internal class Day02 : Day
             }
         }
 
+        t.Stop();
         Logger.Log($"<+black>> part1: h: {pos.h}, d: {pos.d}, result: <+white>{pos.h * pos.d}<r>");
     }
 
@@ -81,6 +82,7 @@ internal class Day02 : Day
             }
         }
 
+        t.Stop();
         Logger.Log($"<+black>> part2: h: {pos.h}, d: {pos.d}, result: <+white>{pos.h * pos.d}<r>");
     }
 }
