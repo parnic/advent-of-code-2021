@@ -18,6 +18,10 @@ internal class Day17 : Day
         public bool IsFar((int x, int y) pt) => pt.x > maxX;
         public bool IsHigh((int x, int y) pt) => pt.y > maxY;
         public bool IsLow((int x, int y) pt) => pt.y < minY;
+        public bool XInRange((int x, int y) pt) => !IsShort(pt) && !IsFar(pt);
+        public bool XInRange(int x) => XInRange((x, 0));
+        public bool YInRange((int x, int y) pt) => !IsHigh(pt) && !IsLow(pt);
+        public bool YInRange(int x) => YInRange((x, 0));
     }
 
     internal override void Go()
@@ -110,24 +114,21 @@ internal class Day17 : Day
     private static (int min, int max) GetXVelocityRange(Rectangle bounds)
     {
         var minSuccessXVel = int.MaxValue;
-        for (var guess = bounds.maxX; ; guess--)
+        for (var guess = bounds.maxX; guess > 0; guess--)
         {
             var guesspt = (0, 0);
             var testVel = (x: guess, 0);
             while (testVel.x > 0)
             {
                 guesspt = Step(guesspt, ref testVel);
-            }
 
-            if (bounds.IsShort(guesspt))
-            {
-                break;
-            }
-            else if (!bounds.IsFar(guesspt))
-            {
-                if (guess < minSuccessXVel)
+                if (bounds.XInRange(guesspt))
                 {
-                    minSuccessXVel = guess;
+                    if (guess < minSuccessXVel)
+                    {
+                        minSuccessXVel = guess;
+                    }
+                    break;
                 }
             }
         }
