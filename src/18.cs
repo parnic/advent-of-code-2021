@@ -95,20 +95,26 @@ internal class Day18 : Day
         }
     }
 
+    public static bool testing;
+
     [Conditional("DEBUG")]
     private static void DoTests()
     {
+        testing = true;
+
         DoExplodeTests();
         DoSplitTests();
         DoMagnitudeTests();
         DoAddTests();
         DoReduceTests();
         DoPart1Tests();
+
+        testing = false;
     }
 
     private static void DoExplodeTests()
     {
-        Logger.Log("<underline>test: explode<r>");
+        Util.StartTestSet("explode");
         var tests = new List<string>()
         {
             "[[[[[9,8],1],2],3],4]",
@@ -134,15 +140,13 @@ internal class Day18 : Day
 
         for (int i = 0; i < tests.Count; i++)
         {
-            Logger.Log($"<magenta>1.{(i + 1)}<r>");
+            Util.StartTest($"1.{(i + 1)}");
+
             SFNum test = ParseSFNum(tests[i]);
             SFNum result = ParseSFNum(exploded[i]);
             var didExplode = CheckExplodes(test);
-            if (!didExplode || test.ToString() != result.ToString())
-            {
-                throw new Exception();
-            }
-            Logger.Log("<green>✓<r>");
+
+            Util.TestCondition(() => didExplode && test.ToString() == result.ToString());
         }
 
         var twoStepTests = new List<string>()
@@ -156,26 +160,19 @@ internal class Day18 : Day
 
         for (int i = 0; i < twoStepTests.Count; i++)
         {
-            Logger.Log($"<magenta>2.{(i + 1)}<r>");
+            Util.StartTest($"2.{(i + 1)}");
             SFNum test = ParseSFNum(twoStepTests[i]);
             SFNum result = ParseSFNum(twoStepExploded[i]);
             var didExplode = CheckExplodes(test);
-            if (!didExplode)
-            {
-                throw new Exception();
-            }
+            Util.TestCondition(() => didExplode, false);
             didExplode = CheckExplodes(test);
-            if (!didExplode || test.ToString() != result.ToString())
-            {
-                throw new Exception();
-            }
-            Logger.Log("<green>✓<r>");
+            Util.TestCondition(() => didExplode || test.ToString() != result.ToString());
         }
     }
 
     private static void DoSplitTests()
     {
-        Logger.Log("<underline>test: split<r>");
+        Util.StartTestSet("split");
         var tests = new List<string>()
         {
             "[[[[0,7],4],[15,[0,13]]],[1,1]]",
@@ -191,22 +188,17 @@ internal class Day18 : Day
 
         for (int i = 0; i < tests.Count; i++)
         {
-            Logger.Log($"<magenta>{(i + 1)}<r>");
+            Util.StartTest($"{(i + 1)}");
             SFNum test = ParseSFNum(tests[i]);
             SFNum result = ParseSFNum(split[i]);
             var didSplit = CheckSplits(test);
-            if (!didSplit || test.ToString() != result.ToString())
-            {
-                throw new Exception();
-            }
-            // todo: add tests verifying owners are correct
-            Logger.Log("<green>✓<r>");
+            Util.TestCondition(() => didSplit && test.ToString() == result.ToString());
         }
     }
 
     private static void DoMagnitudeTests()
     {
-        Logger.Log("<underline>test: magnitude<r>");
+        Util.StartTestSet("magnitude");
         var tests = new List<string>()
         {
             "[9,1]",
@@ -234,20 +226,16 @@ internal class Day18 : Day
 
         for (int i = 0; i < tests.Count; i++)
         {
-            Logger.Log($"<magenta>{(i + 1)}<r>");
+            Util.StartTest($"{(i + 1)}");
             SFNum test = ParseSFNum(tests[i]);
             var magnitude = test.Magnitude;
-            if (magnitude != magnitudes[i])
-            {
-                throw new Exception();
-            }
-            Logger.Log("<green>✓<r>");
+            Util.TestCondition(() => magnitude == magnitudes[i]);
         }
     }
 
     private static void DoAddTests()
     {
-        Logger.Log("<underline>test: add<r>");
+        Util.StartTest("add");
         var tests = new List<List<string>>()
         {
             new()
@@ -263,28 +251,21 @@ internal class Day18 : Day
 
         for (int i = 0; i < tests.Count; i++)
         {
-            Logger.Log($"<magenta>{(i + 1)}<r>");
+            Util.StartTest($"{(i + 1)}");
             SFNum test = ParseSFNum(tests[i][0]);
             for (int j = 1; j < tests[i].Count; j++)
             {
                 test = Add(test, ParseSFNum(tests[i][j]));
             }
             SFNum result = ParseSFNum(results[i]);
-            if (test.ToString() != result.ToString())
-            {
-                throw new Exception();
-            }
-            if (result.leftNum!.owner != result || result.rightNum!.owner != result)
-            {
-                throw new Exception();
-            }
-            Logger.Log("<green>✓<r>");
+            Util.TestCondition(() => test.ToString() == result.ToString(), false);
+            Util.TestCondition(() => result.leftNum!.owner == result && result.rightNum!.owner == result);
         }
     }
 
     private static void DoReduceTests()
     {
-        Logger.Log("<underline>test: reduce<r>");
+        Util.StartTestSet("reduce");
         var tests = new List<string>()
         {
             "[[[[[4,3],4],4],[7,[[8,4],9]]],[1,1]]",
@@ -296,21 +277,17 @@ internal class Day18 : Day
 
         for (int i = 0; i < tests.Count; i++)
         {
-            Logger.Log($"<magenta>{(i + 1)}<r>");
+            Util.StartTest($"{(i + 1)}");
             SFNum test = ParseSFNum(tests[i]);
             SFNum result = ParseSFNum(results[i]);
             Reduce(test);
-            if (test.ToString() != result.ToString())
-            {
-                throw new Exception();
-            }
-            Logger.Log("<green>✓<r>");
+            Util.TestCondition(() => test.ToString() == result.ToString());
         }
     }
 
     private static void DoPart1Tests()
     {
-        Logger.Log("<underline>test: add+reduce<r>");
+        Util.StartTestSet("add+reduce");
         var vals = new List<List<SFNum>>()
         {
             new()
@@ -407,7 +384,7 @@ internal class Day18 : Day
 
         for (int i = 0; i < vals.Count; i++)
         {
-            Logger.Log($"<magenta>{(i + 1)}<r>");
+            Util.StartTest($"{(i + 1)}");
             SFNum curr = vals[i][0];
             for (int j = 1; j < vals[i].Count; j++)
             {
@@ -415,12 +392,7 @@ internal class Day18 : Day
                 Reduce(curr);
             }
 
-            if (curr.ToString() != results[i].ToString())
-            {
-                Logger.Log($" expected: {results[i]}");
-                throw new Exception();
-            }
-            Logger.Log("<green>✓<r>");
+            Util.TestCondition(() => curr.ToString() == results[i].ToString());
         }
     }
 
@@ -639,10 +611,11 @@ internal class Day18 : Day
 
     private static void Explode(SFNum num)
     {
-#if DEBUG
-        num.exploding = true;
-        Logger.Log($"exploding: {num.Root}");
-#endif
+        if (testing)
+        {
+            num.exploding = true;
+            Logger.Log($"exploding: {num.Root}");
+        }
 
         var curr = num;
         var last = num;
@@ -719,9 +692,10 @@ internal class Day18 : Day
             num.owner.right = 0;
         }
 
-#if DEBUG
-        Logger.Log($"        -> {num.Root}");
-#endif
+        if (testing)
+        {
+            Logger.Log($"        -> {num.Root}");
+        }
 
         num.owner = null;
     }
@@ -756,10 +730,12 @@ internal class Day18 : Day
     {
         if (num.left != null && num.left >= 10)
         {
-            num.splittingLeft = true;
-#if DEBUG
-            Logger.Log($"splitting: {num.Root}");
-#endif
+            if (testing)
+            {
+                num.splittingLeft = true;
+                Logger.Log($"splitting: {num.Root}");
+            }
+
             num.leftNum = new()
             {
                 left = (int)Math.Floor((int)num.left / 2.0),
@@ -767,19 +743,24 @@ internal class Day18 : Day
                 owner = num,
             };
             num.left = null;
-            num.splittingLeft = false;
-#if DEBUG
-            Logger.Log($"        -> {num.Root}");
-#endif
+
+            if (testing)
+            {
+                num.splittingLeft = false;
+                Logger.Log($"        -> {num.Root}");
+            }
+
             return true;
         }
 
         if (num.right != null && num.right >= 10)
         {
-            num.splittingRight = true;
-#if DEBUG
-            Logger.Log($"splitting: {num.Root}");
-#endif
+            if (testing)
+            {
+                num.splittingRight = true;
+                Logger.Log($"splitting: {num.Root}");
+            }
+
             num.rightNum = new()
             {
                 left = (int)Math.Floor((int)num.right / 2.0),
@@ -787,10 +768,13 @@ internal class Day18 : Day
                 owner = num,
             };
             num.right = null;
-            num.splittingRight = false;
-#if DEBUG
-            Logger.Log($"        -> {num.Root}");
-#endif
+
+            if (testing)
+            {
+                num.splittingRight = false;
+                Logger.Log($"        -> {num.Root}");
+            }
+
             return true;
         }
 
