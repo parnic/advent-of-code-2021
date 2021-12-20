@@ -5,6 +5,7 @@ namespace aoc2021;
 
 internal static class Util
 {
+    private static readonly char[] StripPreamble = new char[] { (char)8745, (char)9559, (char)9488, };
     internal static IEnumerable<string> ReadAllLines(string filename)
     {
         if (Console.IsInputRedirected)
@@ -15,9 +16,14 @@ internal static class Util
             {
                 if (!lines.Any())
                 {
-                    if (line.StartsWith(Encoding.UTF8.GetString(Encoding.UTF8.GetPreamble())))
+                    var preamble = Encoding.UTF8.GetPreamble();
+                    if (Enumerable.SequenceEqual(line[0..preamble.Length], preamble.Select(x => (char)x)))
                     {
-                        line = line[Encoding.UTF8.GetPreamble().Length..];
+                        line = line[preamble.Length..];
+                    }
+                    else if (Enumerable.SequenceEqual(line[0..StripPreamble.Length].ToCharArray(), StripPreamble))
+                    {
+                        line = line[StripPreamble.Length..];
                     }
                 }
                 lines.Add(line);
