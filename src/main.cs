@@ -20,7 +20,7 @@ else
     Day? day = null;
     if (string.IsNullOrEmpty(arg))
     {
-        day = new Day21();
+        day = new Day22();
     }
     else
     {
