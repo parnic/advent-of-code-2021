@@ -2,11 +2,6 @@
 
 internal class Day21 : Day
 {
-    private record struct GameState((int p1, int p2) Positions, int Turn, (int p1, int p2) Score, (long p1, long p2) Wins, int RollVal, int TotalRolls, int TotalRounds)
-    {
-        public override int GetHashCode() => HashCode.Combine(Positions.p1, Positions.p2, Turn, RollVal, TotalRounds);
-    }
-
     internal override void Go()
     {
         var lines = Util.ReadAllLines("inputs/21.txt");
@@ -35,12 +30,7 @@ internal class Day21 : Day
     {
         using var t = new Timer();
 
-        var playerPos = new int[2]
-        {
-            player1Pos,
-            player2Pos,
-        };
-        var (p1wins, p2wins) = PlayQuantumGame(new List<int>(playerPos), 21);
+        var (p1wins, p2wins) = PlayQuantumGame(player1Pos - 1, player2Pos - 1, 0, 0, 21);
 
         t.Stop();
         Logger.Log($"<+black>> part2: p1: {p1wins:N0}, p2: {p2wins:N0} -> <+white>{Math.Max(p1wins, p2wins)}<r>");
@@ -78,57 +68,40 @@ internal class Day21 : Day
         return ((playerPos + dieVal - 1) % 10) + 1;
     }
 
-    private static readonly Dictionary<int, GameState> cachedWinCases = new();
+    private static readonly Dictionary<(int, int, int, int), (long, long)> cachedWinCases = new();
 
-    private static (long, long) PlayQuantumGame(List<int> playerPos, int maxScore, List<int>? playerScores = null, int turn = 0, int rollNum = 0, int rollVal = 0, int totalRounds = 0, int totalRolls = 0)
+    private static (long, long) PlayQuantumGame(int p1Pos, int p2Pos, int p1Score, int p2Score, int maxScore)
     {
-        playerScores ??= new List<int> { 0, 0 };
-        if (cachedWinCases.TryGetValue(HashCode.Combine(playerPos[0], playerPos[1], turn, rollVal, totalRounds), out GameState winState))
+        if (p1Score >= maxScore)
         {
-            return winState.Wins;
+            return (1, 0);
+        }
+        if (p2Score >= maxScore)
+        {
+            return (0, 1);
+        }
+        if (cachedWinCases.TryGetValue((p1Pos, p2Pos, p1Score, p2Score), out (long, long) numWins))
+        {
+            return numWins;
         }
 
-        var wins = (0L, 0L);
-        while (true)
+        (long p1, long p2) wins = (0, 0);
+        for (int d1 = 1; d1 <= 3; d1++)
         {
-            totalRounds++;
-            for (int i = rollNum; i < 3; i++)
+            for (int d2 = 1; d2 <= 3; d2++)
             {
-                totalRolls++;
-                var twoWins = PlayQuantumGame(new List<int>(playerPos), maxScore, new List<int>(playerScores), turn, i + 1, 2, totalRounds, totalRolls);
-                var threeWins = PlayQuantumGame(new List<int>(playerPos), maxScore, new List<int>(playerScores), turn, i + 1, 3, totalRounds, totalRolls);
-                wins = (wins.Item1 + twoWins.Item1 + threeWins.Item1, wins.Item2 + twoWins.Item2 + threeWins.Item2);
-                playerPos[turn] = PlayOneRoll(playerPos[turn], 1);
-                rollVal = 1;
-            }
-            if (rollNum == 3)
-            {
-                playerPos[turn] = PlayOneRoll(playerPos[turn], rollVal);
-            }
-
-            playerScores[turn] += playerPos[turn];
-            if (playerScores[turn] >= maxScore)
-            {
-                if (turn == 0)
+                for (int d3 = 1; d3 <= 3; d3++)
                 {
-                    wins.Item1++;
+                    var newP1Pos = (p1Pos + d1 + d2 + d3) % 10;
+                    var newP1Score = p1Score + newP1Pos + 1;
+                    var (p2wins, p1wins) = PlayQuantumGame(p2Pos, newP1Pos, p2Score, newP1Score, maxScore);
+                    wins.p1 += p1wins;
+                    wins.p2 += p2wins;
                 }
-                else
-                {
-                    wins.Item2++;
-                }
-
-                GameState state = new((playerPos[0], playerPos[1]), turn, (playerScores[0], playerScores[1]), wins, rollVal, totalRolls, totalRounds);
-                cachedWinCases[state.GetHashCode()] = state;
-
-                break;
             }
-
-            turn = 1 - turn;
-            rollNum = 0;
-            rollVal = 0;
         }
 
+        cachedWinCases[(p1Pos, p2Pos, p1Score, p2Score)] = wins;
         return wins;
     }
 }
